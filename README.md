@@ -1,1 +1,1 @@
-Statistica Learning Group Project
+Statistical Learning Group Project
