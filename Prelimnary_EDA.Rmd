@@ -20,6 +20,7 @@ train = read_csv('train.csv')
 test = read_csv('test.csv')
 ```
 
+A quick 
 ```{r}
 head(train)
 ```
@@ -47,5 +48,171 @@ theme(axis.text.x = element_text(hjust = 1, size = 11))+
 theme(strip.text = element_text(size = 10, face = "bold"))+
 labs(x = "Tablet Owner", y = "Number of Households")+
 scale_x_discrete(labels = c("No", "Yes"))
+
+```
+Majority of the households do not own a tablet but many do. And the interesting thing is that people in extreme poverty households own a tablet! Lets look at how they fare when compared together.
+``` {r}
+train %>%
+ggplot(aes(as.factor(v18q)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "grey")+
+labs(x = "Tablet Owner", y = "Number of Households")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 10))+
+scale_x_discrete(labels = c("No", "Yes"))
+```
+Now lets look at the number of tablets owned by households which do own a tablet
+
+``` {r}
+train %>%
+filter(!is.na(v18q1)) %>%
+ggplot(aes(as.factor(v18q1)))+
+geom_bar(color = "blue")
+
+```
+So the maximum number of tablets owned is 1 but households do own 6 tablets
+
+``` {r}
+
+train %>%
+filter(!is.na(v18q1)) %>%
+ggplot(aes(x = as.factor(v18q1)))+
+geom_bar(colour = "black", fill = "green")+
+facet_wrap(~Target, scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(hjust = 1, size = 10))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(x = "Number of tablets owned", y = "Number of Households")
+
+```
+
+Male Distribution
+```{r}
+train %>%
+ggplot(aes(as.factor(r4h1)))+
+geom_bar(color = "grey", fill = "red", alpha = 0.5)+
+labs(x = "Males younger than 12", "Number of Households")
+```
+
+```{r}
+train %>%
+ggplot(aes(as.factor(r4h2)))+
+geom_bar(color = "grey", fill = "black", alpha = 0.6)+
+labs(x = "Males older than 12", "Number of Households")
+```
+
+```{r}
+train %>%
+ggplot(aes(x = as.factor(Target)))+
+geom_bar(colour = "black", fill = "red", alpha = 0.6)+
+facet_wrap(~as.factor(r4h1), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Household Type and number of males younger than 12", x = "Household Type", y = "Number of Households")
+```
+We see that the number of males younger than 12 are high in extreme poverty and non-vulnerable households.
+
+```{r}
+train %>%
+ggplot(aes(x = as.factor(Target)))+
+geom_bar(colour = "black", fill = "red", alpha = 0.6)+
+facet_wrap(~as.factor(r4h2), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Household Type and number of males older than 12", x = "Household Type", y = "Number of Households")
+```
+The number of data points concerning non-vulnerable households is very large. We can remove some datapoints and analyze them
+to understand the relationship of low income households and compare them
+
+```{r}
+train %>%
+filter(Target != "Non-Vulnerable Household") %>%
+ggplot(aes(as.factor(r4h2)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "grey", alpha = 0.5)+
+labs(x = "Number of Males older than 12", y = "Number of Households")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))
+```
+This reveals an interesting property about the extreme poverty household. There is a high population of males younger than 12 in extreme poverty households 
+while the concentration of males older than 12 is lesser.
+
+```{r}
+train %>%
+ggplot(aes(as.factor(r4h3)))+
+geom_bar(color = "black", fill = "gold", alpha = 0.6)+
+labs(x = "Total Number of Males in Household", "Number of Households")
+```
+```{r}
+train %>%
+ggplot(aes(x = as.factor(r4h3)))+
+geom_bar(colour = "black", fill = "red", alpha = 0.5)+
+facet_wrap(~as.factor(Target), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(face = "bold",size = 10 ))+
+labs(title = "Association between Household Type and total number of males", x = "Type of Household", y = "Number of Households")
+
+```
+Female Distribution 
+
+```{r}
+train %>%
+ggplot(aes(as.factor(r4m1)))+
+geom_bar(color = "black", fill = "red", alpha = 0.5)+
+labs(x = "Females younger than 12", "Number of Households")
+```
+
+```{r}
+train %>%
+ggplot(aes(as.factor(r4m2)))+
+geom_bar(color = "black", fill = "blue", alpha = 0.5)+
+labs(x = "Females older than 12", "Number of Households")
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
 
 ```
