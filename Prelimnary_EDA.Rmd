@@ -111,13 +111,14 @@ labs(title = "Association between Household Type and number of males younger tha
 We see that the number of males younger than 12 are high in extreme poverty and non-vulnerable households.
 
 ```{r}
+#ERROR IN EXECUTION. REVISIT THIS
 train %>%
 ggplot(aes(x = as.factor(Target)))+
-geom_bar(colour = "black", fill = "red", alpha = 0.6)+
+geom_bar(colour = "grey19", fill = "maroon", alpha = 0.6)+
 facet_wrap(~as.factor(r4h2), scales = "free", ncol = 3)+ 
 theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
 theme(strip.text = element_text(size = 9, face = "bold"))+
-labs(title = "Association between Household Type and number of males older than 12", x = "Household Type", y = "Number of Households")
+labs(title = "Association between Household Type and number of males older than 12 ", x = "Household Type", y = "Number of Households")
 ```
 The number of data points concerning non-vulnerable households is very large. We can remove some datapoints and analyze them
 to understand the relationship of low income households and compare them
@@ -166,52 +167,160 @@ geom_bar(color = "black", fill = "blue", alpha = 0.5)+
 labs(x = "Females older than 12", "Number of Households")
 ```
 ```{r}
+train %>%
+ggplot(aes(x = as.factor(Target)))+
+geom_bar(colour = "black", fill = "red", alpha = 0.6)+
+facet_wrap(~as.factor(r4m1), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Household Type and number of females younger than 12", x = "Household Type", y = "Number of Households")
+```
+```{r}
+train %>%
+ggplot(aes(x = as.factor(Target)))+
+geom_bar(colour = "black", fill = "red", alpha = 0.6)+
+facet_wrap(~as.factor(r4m2), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Household Type and number of females older than 12", x = "Household Type", y = "Number of Households")
+```
+```{r}
+train %>%
+ggplot()+
+geom_bar(aes(x = as.factor(r4m1)), colour = "black", fill = "red", alpha = 0.5)+
+geom_bar(aes(x = as.factor(r4m2)), colour = "black", fill = "blue", alpha = 0.25)+
+facet_wrap(~as.factor(Target), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Household Type and number of females of different ages", x = "Type of Household", y = "Number of Households")
+```
+There is not a huge population of females younger than 12 in majority of the households. However, the number of females older
+than 12 are 1 in a majority of the households with the number going upto 5 in households with extreme poverty
+
+```{r}
+train %>%
+filter(Target != "Non-Vulnerable Household") %>%
+ggplot(aes(as.factor(r4m2)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "grey", alpha = 0.5)+
+labs(x = "Females older than 12", y = "Number of Households")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))
+```
+```{r}
+train %>%
+filter(Target != "Non-Vulnerable Household") %>%
+ggplot(aes(as.factor(r4m1)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "black", alpha = 0.6)+
+labs(x = "Females younger than 12", y = "Number of Households")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))
+```
+Females younger than 12 seem to be present majorly in moderate poverty households
+
+```{r}
+train %>%
+ggplot(aes(as.factor(r4m3)))+
+geom_bar(color = "grey", fill = "red", alpha = 0.6)+
+labs(x = "Total Number of Females in the Household", "Number of Households")
+
+```
+
+```{r}
+train %>%
+ggplot(aes(x = as.factor(r4m3)))+
+geom_bar(colour = "black", fill = "blue", alpha = 0.5)+
+facet_wrap(~as.factor(Target), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, size = 8, hjust = 1))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Type of Household and total number of females ", x = "Household Type", y = "Number of Households")
+```
+8. Person Distribution
+```{r}
+train %>%
+ggplot(aes(as.factor(r4t1)))+
+geom_bar(color = "grey", fill = "red", alpha = 0.6)+
+labs(x = "Persons younger than 12", "Number of Households")
+```
+```{r}
+train %>%
+ggplot(aes(as.factor(r4t2)))+
+geom_bar(color = "grey", fill = "blue", alpha = 0.5)+
+labs(x = "Persons older than 12", "Number of Households")
 
 ```
 ```{r}
+train %>%
+ggplot()+
+geom_bar(aes(as.factor(r4t1)), colour = "black", fill = "green", alpha = 0.5)+
+facet_wrap(~as.factor(Target), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Type of Households and number of persons younger than 12 ", x = "Household Type", y = "Number of Households")
+```
+Moderate poverty and extreme poverty households have a huge number of persons younger than 12 whereas vulnerable and non-vulnerable households have a lesser number
+of persons age less than 12
 
+```{r}
+train %>%
+ggplot()+
+geom_bar(aes(as.factor(r4t2)), colour = "black", fill = "green", alpha = 0.5)+
+facet_wrap(~as.factor(Target), scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(title = "Association between Type of Households and number of persons older than 12 ", x = "Household Type", y = "Number of Households")
+```
+There is a reversal of results here with the number of persons older than 12 being higher in non-vulnerable and vulnerable households.
+
+```{r}
+train %>%
+mutate(
+    mean = r4t3/rooms
+) %>%
+ggplot(aes(x = mean))+
+geom_histogram(colour = "black", fill = "blue", bins = 30, alpha = 0.4)+ 
+facet_wrap(~Target, scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(hjust = 1, size = 12))+
+theme(strip.text = element_text(face = "bold", size = 10))+
+labs(title =" Mean Number of Persons vs Rooms", x = "Mean number of persons", y = "Number of Households", size = 12)
+```
+The number of persons in a room goes up as the households get poorer.
+
+9. Number of Years of Schooling
+```{r}
+train %>%
+filter(Target == "Extreme Poverty") %>%
+ggplot(aes(x = as.factor(Target), stat = 'bin', fill = as.factor(escolari)))+
+geom_bar(position = 'fill', color = 'black')+
+coord_polar("y")+
+labs(x = "", y = "")+
+guides(fill = guide_legend("Years of schooling"))
 ```
 ```{r}
-
+train %>%
+filter(Target == "Moderate Poverty") %>%
+ggplot(aes(x = as.factor(Target), stat = 'bin', fill = as.factor(escolari)))+
+geom_bar(position = 'fill', color = 'black')+
+coord_polar("y")+
+labs(x = "", y = "")+
+guides(fill = guide_legend("Years of schooling"))
 ```
 ```{r}
-
+train %>%
+filter(Target == "Vulnerable Household") %>%
+ggplot(aes(x = as.factor(Target), stat = 'bin', fill = as.factor(escolari)))+
+geom_bar(position = 'fill', color = 'black')+
+coord_polar("y")+
+labs(x = "", y = "")+
+guides(fill = guide_legend("Years of schooling"))
 ```
 ```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
-```
-```{r}
-
+train %>%
+filter(Target == "Non-Vulnerable Household") %>%
+ggplot(aes(x = as.factor(Target), stat = 'bin', fill = as.factor(escolari)))+
+geom_bar(position = 'fill', color = 'black')+
+coord_polar("y")+
+labs(x = "", y = "")+
+guides(fill = guide_legend("Years of schooling"))
 ```
 ```{r}
 

@@ -1,4 +1,4 @@
-# Statistical Learning Group Project
+# Costa-Rican-Household-Poverty-Level-Prediction
 
 ## Background 
 
