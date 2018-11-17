@@ -322,6 +322,5 @@ coord_polar("y")+
 labs(x = "", y = "")+
 guides(fill = guide_legend("Years of schooling"))
 ```
-```{r}
 
-```
+Majority of persons in extreme poverty households have 0 years of households
