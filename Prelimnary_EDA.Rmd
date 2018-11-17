@@ -5,28 +5,47 @@ date: "11/17/2018"
 output: html_document
 ---
 
-Let's quickly explore the basics of 
+Let's quickly explore the dimensionality and the behaviors of different categorical features present in the dataset. But before that we will try to import the required libraries for our study.
 
 ```{r}
+library(tidyverse)
+library(grid)
+library(gridExtra)
+```
+
+Assigning train and test data to variables.
+
+```{r}
+train = read_csv('train.csv')
+test = read_csv('test.csv')
+```
+
+```{r}
+head(train)
+```
+
+```{r}
+train$Target[train$Target == 1] = 'Extreme Poverty'
+train$Target[train$Target == 2] = 'Moderate Poverty'
+train$Target[train$Target == 3] = 'Vulnerable Household'
+train$Target[train$Target == 4] = 'Non-Vulnerable Household'
+
+train %>%
+ggplot(aes(Target))+
+geom_bar(color = 'black', fill = 'tomato')+
+xlab("Target Classes")+
+ylab("Target Classes Count")
 
 ```
 
-## R Markdown
+``` {r}
+train %>%
+ggplot(aes(x = as.factor(v18q)))+
+geom_bar(colour = "black", fill = "blue")+
+facet_wrap(~Target, scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(hjust = 1, size = 11))+
+theme(strip.text = element_text(size = 10, face = "bold"))+
+labs(x = "Tablet Owner", y = "Number of Households")+
+scale_x_discrete(labels = c("No", "Yes"))
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
