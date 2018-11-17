@@ -5,7 +5,7 @@ date: "11/17/2018"
 output: html_document
 ---
 
-Let's quickly explore the basics of lollolol
+Let's quickly explore the basics of 
 
 ```{r}
 
