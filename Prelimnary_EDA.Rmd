@@ -144,8 +144,18 @@ labs(x = "Number of Males older than 12", y = "Number of Households")+
 guides(fill = guide_legend('Household Type'))+
 theme(axis.text.x = element_text(hjust = 1, size = 9))
 ```
-This reveals an interesting property about the extreme poverty household. There is a high population of males younger than 12 in extreme poverty households 
-while the concentration of males older than 12 is lesser.
+
+```{r}
+train %>%
+filter(Target != "Non-Vulnerable Household") %>%
+ggplot(aes(as.factor(r4h1)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "grey", alpha = 0.5)+
+labs(x = "Number of Males younger than 12", y = "Number of Households")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))
+```
+
+This reveals an interesting property about the extreme poverty household. There is a high population of males younger than 12 in extreme poverty households while the concentration of males older than 12 is lesser.
 
 ```{r}
 train %>%
