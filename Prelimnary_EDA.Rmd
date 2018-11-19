@@ -84,7 +84,20 @@ labs(x = "Number of tablets owned", y = "Number of Households")
 
 ```
 
-Male Distribution
+
+```{r}
+train %>%
+filter(!is.na(v18q1)) %>%
+ggplot(aes(as.factor(v18q1)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "black")+
+labs(x = "Owns a tablet or not?", y = "Count")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))
+
+```
+
+
+## Male Distribution
 ```{r}
 train %>%
 ggplot(aes(as.factor(r4h1)))+
