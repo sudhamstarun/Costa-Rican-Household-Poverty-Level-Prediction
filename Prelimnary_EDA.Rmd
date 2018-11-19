@@ -217,12 +217,11 @@ labs(title = "Association between Household Type and number of males younger tha
 We see that the number of males younger than 12 are high in extreme poverty and non-vulnerable households.
 
 ```{r}
-#ERROR IN EXECUTION. REVISIT THIS
 train %>%
 ggplot(aes(x = as.factor(Target)))+
 geom_bar(colour = "grey19", fill = "maroon", alpha = 0.6)+
 facet_wrap(~as.factor(r4h2), scales = "free", ncol = 3)+ 
-theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(axis.text.x = element_text(angle = 15, hjust = 1, size = 7))+
 theme(strip.text = element_text(size = 9, face = "bold"))+
 labs(title = "Association between Household Type and number of males older than 12 ", x = "Household Type", y = "Number of Households")
 ```
@@ -238,8 +237,18 @@ labs(x = "Number of Males older than 12", y = "Number of Households")+
 guides(fill = guide_legend('Household Type'))+
 theme(axis.text.x = element_text(hjust = 1, size = 9))
 ```
-This reveals an interesting property about the extreme poverty household. There is a high population of males younger than 12 in extreme poverty households 
-while the concentration of males older than 12 is lesser.
+
+```{r}
+train %>%
+filter(Target != "Non-Vulnerable Household") %>%
+ggplot(aes(as.factor(r4h1)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "grey", alpha = 0.5)+
+labs(x = "Number of Males younger than 12", y = "Number of Households")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))
+```
+
+This reveals an interesting property about the extreme poverty household. There is a high population of males younger than 12 in extreme poverty households while the concentration of males older than 12 is lesser.
 
 ```{r}
 train %>%
@@ -284,9 +293,9 @@ labs(title = "Association between Household Type and number of females younger t
 ```{r}
 train %>%
 ggplot(aes(x = as.factor(Target)))+
-geom_bar(colour = "black", fill = "red", alpha = 0.6)+
+geom_bar(colour = "grey19", fill = "maroon", alpha = 0.6)+
 facet_wrap(~as.factor(r4m2), scales = "free", ncol = 3)+ 
-theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
+theme(axis.text.x = element_text(angle = 15, hjust = 1, size = 7))+
 theme(strip.text = element_text(size = 9, face = "bold"))+
 labs(title = "Association between Household Type and number of females older than 12", x = "Household Type", y = "Number of Households")
 ```
