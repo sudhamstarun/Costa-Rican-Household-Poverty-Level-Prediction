@@ -20,9 +20,102 @@ train = read_csv('train.csv')
 test = read_csv('test.csv')
 ```
 
-A quick 
+A quick look at the train datatset
 ```{r}
 head(train)
+```
+
+## Monthly Rent 
+
+```{r}
+train %>%
+ggplot(aes(v2a1))+
+geom_histogram(fill = 'skyblue', color = 'black', bins = 100)+
+labs(x = "Monthly Rent", y = "Count")
+```
+The distribution of the monthly rent is skewed towards left and there is an outlier value beyond 2000k. Lets look at the log-distribution.
+
+```{r}
+train %>%
+ggplot(aes(log1p(v2a1)))+
+geom_histogram(fill = 'skyblue', color = 'black', bins = 100)+
+labs(x = "Log Monthly Rent", y = "Count")
+```
+
+The log distribution of the montly rent is normally distributed, with outliers at x = 1.
+
+```{r}
+train %>%
+ggplot(aes(x = log1p(v2a1)))+
+geom_histogram(colour = "grey19", fill = "tomato3", bins = 50)+ 
+facet_wrap(~Target, scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(hjust = 1, size = 12))+
+theme(strip.text = element_text(size = 10, face = "bold"))+
+labs(title =" Monthly Rent Payment by Target", x = "Monthly Rent", y = "Number of Instances", size = 15)
+```
+
+The households in extreme and moderate poverty also pay a high montly rent and infact similar to non-vulnerable households.
+
+## Number of Bedrooms in the house 
+
+```{r}
+train %>%
+ggplot(aes(as.factor(rooms)))+
+geom_bar(fill = 'maroon', color = 'black')+
+xlab("Number of rooms")+
+ylab("Count of rooms")
+```
+On an average there are 5 rooms for each household
+
+
+```{r}
+train %>%
+ggplot(aes(x = as.factor(rooms)))+
+geom_bar(colour = "grey19", fill = "yellow")+
+facet_wrap(~Target, scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(hjust = 1, size = 12))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(x = "Number of rooms", y = "Count")
+```
+
+For targetwise distribution, I see that household varies with the income bracket of the household. In non-vulnerable households, the highest number of rooms if 5 whereas in extreme and moderate poverty households the number of rooms is maximum 4.
+
+```{r}
+train %>%
+ggplot(aes(as.factor(rooms)))+
+geom_bar(aes(fill = as.factor(Target)), color = "black")+
+labs(x = "Number of rooms", y = "Count")+
+guides(fill = guide_legend("Household Type"))
+```
+
+On the basis of household type, the above chart is rendered.
+
+## Chances of having a refrigerator 
+<br>
+
+Technically, poor households are not supposed to have more refrigerators
+
+```{r}
+train %>%
+ggplot(aes(x = as.factor(refrig)))+
+geom_bar(colour = "grey19", fill = "orange")+
+facet_wrap(~Target, scales = "free", ncol = 3)+ 
+theme(axis.text.x = element_text(hjust = 1, size = 10))+
+theme(strip.text = element_text(size = 9, face = "bold"))+
+labs(x = "Owns a refrigerator or not?", y = "Count")+
+scale_x_discrete(labels = c("No", "Yes"))
+```
+
+However, I see that even poor households have refrigerator lol! Let's take a look at the household type then since we'll need a more indepth look 
+
+```{r}
+train %>%
+ggplot(aes(as.factor(refrig)))+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "black")+
+labs(x = "Owns a refrigerator or not?", y = "Count")+
+guides(fill = guide_legend('Household Type'))+
+theme(axis.text.x = element_text(hjust = 1, size = 9))+
+scale_x_discrete(labels = c("No", "Yes"))
 ```
 
 ```{r}
