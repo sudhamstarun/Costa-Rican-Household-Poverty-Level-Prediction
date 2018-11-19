@@ -173,7 +173,8 @@ theme(strip.text = element_text(face = "bold",size = 10 ))+
 labs(title = "Association between Household Type and total number of males", x = "Type of Household", y = "Number of Households")
 
 ```
-Female Distribution 
+
+## Female Distribution 
 
 ```{r}
 train %>%
@@ -216,8 +217,7 @@ theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
 theme(strip.text = element_text(size = 9, face = "bold"))+
 labs(title = "Association between Household Type and number of females of different ages", x = "Type of Household", y = "Number of Households")
 ```
-There is not a huge population of females younger than 12 in majority of the households. However, the number of females older
-than 12 are 1 in a majority of the households with the number going upto 5 in households with extreme poverty
+In the above graph, blue corresponds to females older than 12 and red to females younger than 12. There is not a huge population of females younger than 12 in majority of the households. However, the number of females older than 12 are 1 in a majority of the households with the number going upto 5 in households with extreme poverty.
 
 ```{r}
 train %>%
@@ -232,7 +232,7 @@ theme(axis.text.x = element_text(hjust = 1, size = 9))
 train %>%
 filter(Target != "Non-Vulnerable Household") %>%
 ggplot(aes(as.factor(r4m1)))+
-geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "black", alpha = 0.6)+
+geom_bar(aes(fill = as.factor(Target)), position = "dodge", color = "grey", alpha = 0.5)+
 labs(x = "Females younger than 12", y = "Number of Households")+
 guides(fill = guide_legend('Household Type'))+
 theme(axis.text.x = element_text(hjust = 1, size = 9))
@@ -256,7 +256,7 @@ theme(axis.text.x = element_text(angle = 45, size = 8, hjust = 1))+
 theme(strip.text = element_text(size = 9, face = "bold"))+
 labs(title = "Association between Type of Household and total number of females ", x = "Household Type", y = "Number of Households")
 ```
-8. Person Distribution
+## Person Distribution
 ```{r}
 train %>%
 ggplot(aes(as.factor(r4t1)))+
@@ -279,8 +279,7 @@ theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))+
 theme(strip.text = element_text(size = 9, face = "bold"))+
 labs(title = "Association between Type of Households and number of persons younger than 12 ", x = "Household Type", y = "Number of Households")
 ```
-Moderate poverty and extreme poverty households have a huge number of persons younger than 12 whereas vulnerable and non-vulnerable households have a lesser number
-of persons age less than 12
+Moderate poverty and extreme poverty households have a huge number of persons younger than 12 whereas vulnerable and non-vulnerable households have a lesser number of persons age less than 12.
 
 ```{r}
 train %>%
@@ -307,7 +306,7 @@ labs(title =" Mean Number of Persons vs Rooms", x = "Mean number of persons", y 
 ```
 The number of persons in a room goes up as the households get poorer.
 
-9. Number of Years of Schooling
+## Number of Years of Schooling
 ```{r}
 train %>%
 filter(Target == "Extreme Poverty") %>%
