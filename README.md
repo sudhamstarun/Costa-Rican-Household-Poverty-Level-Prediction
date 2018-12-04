@@ -13,10 +13,11 @@ In Latin America, one popular method uses an algorithm to verify income qualific
 
 Beyond Costa Rica, many countries face this same problem of inaccurately assessing social need. If there is a new algorithm that could be implmented in Costa Rica then a lot of other similar countries will follow suit.
 
-## Important Links
+## Research Question
 
-*Challenge* --> https://www.kaggle.com/c/costa-rican-household-poverty-prediction <br>
-*Drive Link for Reports* --> https://drive.google.com/drive/folders/1BMxTZ6Sd7ijNSmMt23QaOB4fqXYBji1w?usp=sharing <br>
+It is extremely difficult for social programs such as this to gauge the right amount of aid that needs to be given to the  right people. This problem is made exponentially more difficult when that program is dealing with the least fortunate portion of the population. This is because they cannot provide the necessary details of their income, asset or expense records to justify that they need the aid to qualify.<br>
+<br>
+Hence, this paper’s defining question is: how to determine a method to effectively gauge the right amount of aid to be given to each household given the multitude of variables present in the vast dataset?
 
 
 
